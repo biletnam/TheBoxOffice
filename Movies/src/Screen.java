@@ -1,12 +1,15 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class Screen {
 
     private String movie;
     private int[] tickets = {30, 30, 30, 30, 30, 30};
-    private ArrayList<String> times = new ArrayList<>(Arrays.asList("10:00 PM", "12:00 AM", "2:00 PM", "4:00 PM", "6:00 PM", "8:00 PM", "10:00 PM", "12:00 PM"));
+    private ArrayList<String> times = new ArrayList<>(Arrays.asList("10:00 AM", "12:00 AM", "2:00 PM", "4:00 PM", "6:00 PM", "8:00 PM", "10:00 PM", "12:00 PM"));
+    private Scanner scanner = new Scanner(System.in);
+    int timeIndex;
 
     public Screen(String movie, int numOfTickets){
         this.movie = movie;
@@ -36,21 +39,22 @@ public class Screen {
 //    }
 
     public List<String> getTimes(int currentTime, int dayLength) {
-
-        for(int i = 0; i <= dayLength; i += 3){
-            System.out.print(i+"    ");
-            System.out.println(times.subList(currentTime % 6, 7));
-        }
-
-
-       if(currentTime == 0){
-           return times;
-       }
-       else if(currentTime <= 3){
-            return times.subList(1,6);
-       }
-       else if(currentTime <= 6)
-
+//        for(int i = 0; i <= dayLength / 1000; i += 6){
+//            System.out.print(i+"    "+currentTime+"    "+currentTime / 6);
+            System.out.println("The current available times are "+ times.subList( currentTime / 6, 8) +"\nEnter one of" +
+                    " the available times.");
+            String time = scanner.nextLine();
+            for(int i = 0; i < times.size(); i++){
+                if(times.get(i).equals(time)){
+                    timeIndex = i;
+                }
+            }
+            System.out.println("How many tickets would you like to buy?");
+            int numTickets = scanner.nextInt();
+            if(numTickets <= tickets[timeIndex]){
+                tickets[timeIndex] -= numTickets;
+            }
+        return null;
     }
 
     public String toString(){
