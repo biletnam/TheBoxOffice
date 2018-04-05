@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Screen {
 
     private String movie;
-    private int[] tickets = {30, 30, 30, 30, 30, 30};
+    private int[] tickets = {30, 30, 30, 30, 30, 30, 30, 30};
     private ArrayList<String> times = new ArrayList<>(Arrays.asList("10:00 AM", "12:00 AM", "2:00 PM", "4:00 PM", "6:00 PM", "8:00 PM", "10:00 PM", "12:00 PM"));
     private Scanner scanner = new Scanner(System.in);
     int timeIndex;

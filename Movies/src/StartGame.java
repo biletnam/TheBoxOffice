@@ -27,23 +27,31 @@ public class StartGame {
         Screen four = new Screen("Get Out");
         Screen five = new Screen("Dunkirk");
 
+
+
         System.out.println("This Movie theater runs on a unique time system where every 3 seconds is equivalent to one hour");
         while(System.currentTimeMillis() - INITIAL_TIME < DAY_LENGTH){
             System.out.println("What movie would you like to see? Your options are The Shape of Water (S), Lady Bird (L), " +
                    "The Big Sick (B), Get Out (G) and Dunkirk (D)" +
-                    "\nThe current time is "+((System.currentTimeMillis() - INITIAL_TIME)/ 1000) / 3+" hours");
+                    "\nThe current time is "+ ((10 + ((((System.currentTimeMillis() - INITIAL_TIME)/ 1000)) / 3)) % 12)+":"+
+                    (((((System.currentTimeMillis() - INITIAL_TIME) / 10)) / 3) - ((((System.currentTimeMillis() - INITIAL_TIME)/ 10)) / 3)));
             movieName = scanner.next();
             switch(movieName){
                 case "S":
                     getMovieTimes(one);
+                    break;
                 case "L":
                     getMovieTimes(two);
+                    break;
                 case "B":
                     getMovieTimes(three);
+                    break;
                 case "G":
                     getMovieTimes(four);
+                    break;
                 case "D":
                     getMovieTimes(five);
+                    break;
                 default:
                     break;
             }
