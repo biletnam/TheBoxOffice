@@ -7,7 +7,7 @@ public class Screen {
 
     private String movie;
     private int[] tickets = {30, 30, 30, 30, 30, 30, 30, 30};
-    private ArrayList<String> times = new ArrayList<>(Arrays.asList("10:00 AM", "12:00 AM", "2:00 PM", "4:00 PM", "6:00 PM", "8:00 PM", "10:00 PM", "12:00 PM"));
+    private ArrayList<String> times = new ArrayList<>(Arrays.asList("10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "24:00"));
     private Scanner scanner = new Scanner(System.in);
     int timeIndex;
 
@@ -49,7 +49,8 @@ public class Screen {
                     timeIndex = i;
                 }
             }
-            System.out.println("How many tickets would you like to buy?");
+            System.out.println("How many tickets would you like to buy? There are "+tickets[timeIndex]+
+                    " left for the "+times.get(timeIndex)+" showing.");
             int numTickets = scanner.nextInt();
             if(numTickets <= tickets[timeIndex]){
                 tickets[timeIndex] -= numTickets;
@@ -58,7 +59,7 @@ public class Screen {
     }
 
     public String toString(){
-        return "This screen is playing "+movie+" and has "+tickets+" remaining.";
+        return "This screen is playing "+movie+" and has "+tickets.toString()+" remaining.";
     }
 }
 
