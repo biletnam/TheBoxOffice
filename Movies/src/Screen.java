@@ -30,6 +30,13 @@ public class Screen {
         this.movie = movie;
     }
 
+
+    public void swapMovies(Screen screen2){
+        String placeholder = screen2.getMovie();
+        screen2.setMovie(movie);
+        movie = placeholder;
+    }
+
 //    public void ticketsSold(int ticketsBought,){
 //        tickets -= ticketsBought;
 //    }
@@ -41,7 +48,7 @@ public class Screen {
     public List<String> getTimes(int currentTime, int dayLength) {
 //        for(int i = 0; i <= dayLength / 1000; i += 6){
 //            System.out.print(i+"    "+currentTime+"    "+currentTime / 6);
-            System.out.println("The current available times are "+ times.subList( currentTime / 6, 8) +"\nEnter one of" +
+            System.out.println("The current available times for " + movie + " are " + times.subList( currentTime / 6, 8) +"\nEnter one of" +
                     " the available times.");
             String time = scanner.nextLine();
             for(int i = 0; i < times.size(); i++){
@@ -59,7 +66,7 @@ public class Screen {
     }
 
     public String toString(){
-        return "This screen is playing "+movie+" and has "+tickets.toString()+" remaining.";
+        return "This screen is playing "+movie+" and has "+tickets+" remaining.";
     }
 }
 
