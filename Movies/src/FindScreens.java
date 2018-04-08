@@ -18,23 +18,25 @@ public class FindScreens {
         scanner = new Scanner(System.in);
     }
 
-    public void screenTimes(String movieName){
+    public boolean screenTimes(String movieName) {
         Screen screen = findMovie(movieName);
-        screen.getTimes((int)(System.currentTimeMillis() - initTime)/ 1000, (int)dayLength / 1000);
+        if(movieName.equals("end")){
+            return false;
+        }
+        if (!movieName.equals("swap") && !movieName.equals("time")){
+            screen.getTimes((int) (System.currentTimeMillis() - initTime) / 1000, (int) dayLength / 1000);
+        }
+        return true;
     }
 
     public void screenSwap(){
-//        Screen screen1 = findMovie(movie1);
-//        Screen screen2 = findMovie(movie2);
-//        screen1.swapMovies(screen2);
-
-
         System.out.println("Now type the two movies you want to swap (S L).");
         String movie1 = scanner.next();
         String movie2 = scanner.next();
         Screen screen1 = findMovie(movie1);
         Screen screen2 = findMovie(movie2);
         screen1.swapMovies(screen2);
+        System.out.println("The movies "+movie1+" and "+movie2+" have successfully been swapped");
     }
 
     public Screen findMovie(String movieName){
@@ -51,6 +53,10 @@ public class FindScreens {
                 return five;
             case "swap":
                 screenSwap();
+                break;
+            case "time":
+                String currentTime = String.format("%02d:00", 9 + (((System.currentTimeMillis() - initTime) / 1000) / 3));
+                System.out.println("The current hour is "+currentTime);
             default:
                 break;
         }

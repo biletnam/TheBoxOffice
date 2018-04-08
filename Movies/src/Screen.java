@@ -33,10 +33,20 @@ public class Screen {
 
     public void swapMovies(Screen screen2){
         String placeholder = screen2.getMovie();
+        int[] movieTickets = screen2.getTickets();
         screen2.setMovie(movie);
+        screen2.setTickets(tickets);
         movie = placeholder;
+        tickets = movieTickets;
     }
 
+    public void setTickets(int[] tickets){
+        this.tickets = tickets;
+    }
+
+    public int[] getTickets(){
+        return tickets;
+    }
 //    public void ticketsSold(int ticketsBought,){
 //        tickets -= ticketsBought;
 //    }
@@ -45,28 +55,38 @@ public class Screen {
 //        return  tickets;
 //    }
 
-    public List<String> getTimes(int currentTime, int dayLength) {
-//        for(int i = 0; i <= dayLength / 1000; i += 6){
-//            System.out.print(i+"    "+currentTime+"    "+currentTime / 6);
-            System.out.println("The current available times for " + movie + " are " + times.subList( currentTime / 6, 8) +"\nEnter one of" +
+    public void getTimes(int currentTime, int dayLength) {
+        int numTickets;
+        if(currentTime / 6 < 8) {
+            System.out.println("The current available times for " + movie + " are " + times.subList(currentTime / 6, 8) + "\nEnter one of" +
                     " the available times.");
             String time = scanner.nextLine();
-            for(int i = 0; i < times.size(); i++){
-                if(times.get(i).equals(time)){
+            for (int i = 0; i < times.size(); i++) {
+                if (times.get(i).equals(time)) {
                     timeIndex = i;
                 }
             }
-            System.out.println("How many tickets would you like to buy? There are "+tickets[timeIndex]+
-                    " left for the "+times.get(timeIndex)+" showing.");
-            int numTickets = scanner.nextInt();
-            if(numTickets <= tickets[timeIndex]){
-                tickets[timeIndex] -= numTickets;
+            System.out.println("How many tickets would you like to buy? There are " + tickets[timeIndex] +
+                    " left for the " + times.get(timeIndex) + " showing.");
+            numTickets = tickets[timeIndex] + 1;
+            while (numTickets > tickets[timeIndex]) {
+                numTickets = scanner.nextInt();
+                if (numTickets <= tickets[timeIndex]) {
+                    tickets[timeIndex] -= numTickets;
+                    break;
+                }
+                System.out.println("There aren't that many tickets left. There are only " + tickets[timeIndex] + " tickets available.");
             }
-        return null;
+        }
     }
 
     public String toString(){
-        return "This screen is playing "+movie+" and has "+tickets+" remaining.";
+        String ticketStats = "This screen is playing "+movie+" and has";
+        for(int i = 0; i < times.size(); i++){
+            ticketStats += "\n"+tickets[i]+" tickets at "+times.get(i);
+        }
+        ticketStats += "\n\n";
+        return ticketStats;
     }
 }
 
