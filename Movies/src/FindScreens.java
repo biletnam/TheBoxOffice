@@ -8,9 +8,9 @@ public class FindScreens {
    private Scanner scanner;
 
     public FindScreens(long initTime, long dayLength){
-        one = new Screen("The Shape of Water");
+        one = new Screen("Shape of Water");
         two = new Screen("Lady Bird");
-        three = new Screen("The Big Sick");
+        three = new Screen("Big Sick");
         four = new Screen("Get Out");
         five = new Screen("Dunkirk");
         this.initTime = initTime;
@@ -19,11 +19,14 @@ public class FindScreens {
     }
 
     public boolean screenTimes(String movieName) {
-        Screen screen = findMovie(movieName);
+        Screen screen = findMovie(movieName.toUpperCase());
+//        if(screen == null){
+//            System.out.println(movieName+" isn't in the system");
+//        }
         if(movieName.equals("end")){
             return false;
         }
-        if (!movieName.equals("swap") && !movieName.equals("time")){
+        if (!movieName.equals("swap") && !movieName.equals("time") && screen != null){
             screen.getTimes((int) (System.currentTimeMillis() - initTime) / 1000, (int) dayLength / 1000);
         }
         return true;
@@ -51,19 +54,41 @@ public class FindScreens {
                 return four;
             case "D":
                 return five;
-            case "swap":
+            case "SWAP":
                 screenSwap();
                 break;
-            case "time":
-                String currentTime = String.format("%02d:00", 9 + (((System.currentTimeMillis() - initTime) / 1000) / 3));
-                System.out.println("The current hour is "+currentTime);
+//            case "time":
+//                String currentTime = String.format("%02d:00", 9 + (((System.currentTimeMillis() - initTime) / 1000) / 3));
+//                System.out.println("The current hour is "+currentTime);
+            case "END":
+                break;
             default:
+                System.out.println(movieName+ " isn't in the system");
                 break;
         }
         return null;
     }
 
     public String getStats(){
-        return one.toString()+"\n"+two.toString()+"\n"+three.toString()+"\n"+four.toString()+"\n"+five.toString();
+        return one.stats()+"\n"+two.stats()+"\n"+three.stats()+"\n"+four.stats()+"\n"+five.stats();
+    }
+
+    public String getScreenOne(){
+        return one.toString();
+    }
+
+    public String getScreenTwo(){
+        return two.toString();
+    }
+    public String getScreenThree(){
+        return three.toString();
+    }
+
+    public String getScreenFour(){
+        return four.toString();
+    }
+
+    public String getScreenFive(){
+        return five.toString();
     }
 }

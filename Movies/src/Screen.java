@@ -57,10 +57,11 @@ public class Screen {
 
     public void getTimes(int currentTime, int dayLength) {
         int numTickets;
+        String time = null;
         if(currentTime / 6 < 8) {
             System.out.println("The current available times for " + movie + " are " + times.subList(currentTime / 6, 8) + "\nEnter one of" +
                     " the available times.");
-            String time = scanner.nextLine();
+            time = scanner.next();
             for (int i = 0; i < times.size(); i++) {
                 if (times.get(i).equals(time)) {
                     timeIndex = i;
@@ -71,7 +72,7 @@ public class Screen {
             numTickets = tickets[timeIndex] + 1;
             while (numTickets > tickets[timeIndex]) {
                 numTickets = scanner.nextInt();
-                if (numTickets <= tickets[timeIndex]) {
+                if (numTickets <= tickets[timeIndex] && numTickets > 0) {
                     tickets[timeIndex] -= numTickets;
                     break;
                 }
@@ -81,7 +82,11 @@ public class Screen {
     }
 
     public String toString(){
-        String ticketStats = "This screen is playing "+movie+" and has";
+        return movie +" ("+movie.substring(0,1).toUpperCase()+")";
+    }
+
+    public String stats(){
+        String ticketStats = "This screen is playing "+movie+" and sold tickets for the following times:";
         for(int i = 0; i < times.size(); i++){
             ticketStats += "\n"+tickets[i]+" tickets at "+times.get(i);
         }
