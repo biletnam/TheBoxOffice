@@ -11,26 +11,34 @@ public class Screen {
     private Scanner scanner = new Scanner(System.in);
     int timeIndex;
 
-    public Screen(String movie, int numOfTickets){
-        this.movie = movie;
-        for(int i = 0; i < 7; i++){
-            tickets[i] = numOfTickets;
-        }
-    }
-
+    /**
+     * Creates a theater with a fixed number of tickets and times, but a unique name passed in
+     * @param movie the string name of the movie
+     */
     public Screen(String movie){
         this.movie = movie;
     }
 
+    /**
+     * Gets the name of the movie at the screen
+     * @return the string name of the movie at the screen
+     */
     public String getMovie(){
         return movie;
     }
 
+    /**
+     * Sets the movie name of this screen to a new movie name
+     * @param movie the new name of the movie passed by the user
+     */
     public void setMovie(String movie){
         this.movie = movie;
     }
 
-
+    /**
+     * Swaps the movies in two separate screens
+     * @param screen2 the second screen being swapped with
+     */
     public void swapMovies(Screen screen2){
         String placeholder = screen2.getMovie();
         int[] movieTickets = screen2.getTickets();
@@ -40,22 +48,28 @@ public class Screen {
         tickets = movieTickets;
     }
 
+    /**
+     * Sets the number of tickets in the screen for when movies are swapped between theaters
+     * @param tickets the number of tickets to set the screen to
+     */
     public void setTickets(int[] tickets){
         this.tickets = tickets;
     }
 
+    /**
+     * Gets the number of tickets in this screen
+     * @return the number of tickets in this screen
+     */
     public int[] getTickets(){
         return tickets;
     }
-//    public void ticketsSold(int ticketsBought,){
-//        tickets -= ticketsBought;
-//    }
-//
-//    public int getTicketSales(){
-//        return  tickets;
-//    }
 
-    public void getTimes(int currentTime, int dayLength) {
+    /**
+     * Gets all of the current available times a movie is playing at. Once a time has been picked out the user specifies
+     * how many tickets they want and it will check if it is a valid number.
+     * @param currentTime the current hour in game
+     */
+    public void getTimes(int currentTime) {
         int numTickets;
         String time = null;
         if(currentTime / 6 < 8) {
@@ -81,16 +95,26 @@ public class Screen {
         }
     }
 
+    /**
+     * Creates a string of the movie's name and its prefix
+     * @return a string of the movie's name and prefix
+     */
     public String toString(){
         return movie +" ("+movie.substring(0,1).toUpperCase()+")";
     }
 
+    /**
+     * Gets all of the tickets at each hour for this screen and returns them as a string
+     * @return a string of all the tickets remaining at each hour
+     */
     public String stats(){
+        int ticketsSold = 0;
         String ticketStats = "This screen is playing "+movie+" and sold tickets for the following times:";
         for(int i = 0; i < times.size(); i++){
             ticketStats += "\n"+tickets[i]+" tickets at "+times.get(i);
+            ticketsSold += 30 - tickets[i];
         }
-        ticketStats += "\n\n";
+        ticketStats += "\nThis screen sold a total of "+ticketsSold+" tickets\n\n";
         return ticketStats;
     }
 }
